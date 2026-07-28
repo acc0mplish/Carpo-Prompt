@@ -1,0 +1,99 @@
+:host {
+  all: initial;
+  color: #f8f5f1;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: normal;
+}
+
+:host *, :host *::before, :host *::after { box-sizing: border-box; }
+:host .carpo-panel {
+  position: fixed; right: 22px; bottom: 22px; z-index: 2147483646; width: min(456px, calc(100vw - 32px)); max-height: min(790px, calc(100vh - 36px)); overflow: auto;
+  padding: 16px; border: 1px solid rgba(255,255,255,.13); border-radius: 22px; background: #171719; box-shadow: 0 24px 72px rgba(0,0,0,.48); color: #f8f5f1;
+}
+:host .carpo-header, :host .carpo-brand, :host .carpo-preview, :host .carpo-image-row, :host .carpo-actions, :host .carpo-head-actions { display: flex; align-items: center; }
+:host .carpo-header { justify-content: space-between; gap: 10px; margin-bottom: 16px; }
+:host .carpo-brand { min-width: 0; gap: 9px; }
+:host .carpo-brand[data-drag-handle] { cursor: grab; user-select: none; }
+:host .carpo-brand[data-drag-handle]:active { cursor: grabbing; }
+:host .carpo-brand img { width: 28px; height: 28px; border-radius: 8px; }
+:host .carpo-brand div { display: grid; gap: 1px; }
+:host .carpo-brand strong { color: #fff; font-size: 14px; letter-spacing: -.02em; }
+:host .carpo-brand span { overflow: hidden; color: #aaa8a6; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+:host .carpo-head-actions { gap: 3px; }
+:host .carpo-text-button { border: 0; background: transparent; color: #aaa7a3; cursor: pointer; font: 11px inherit; padding: 5px; }
+:host .carpo-text-button:hover { color: #fff; }
+:host .carpo-image-row, :host .carpo-preview { gap: 14px; padding: 13px; border: 1px solid #2b2b2f; border-radius: 16px; background: #202023; }
+:host .carpo-thumb, :host .carpo-preview img { width: 64px; height: 64px; flex: 0 0 auto; border-radius: 11px; object-fit: cover; background: #2b2b2f; }
+:host .carpo-kicker { margin: 0 0 6px; color: #ff8d40; font-size: 10px; font-weight: 760; letter-spacing: .13em; }
+:host h2 { margin: 0; color: #fff; font-size: 17px; letter-spacing: -.025em; }
+:host .carpo-image-row p:not(.carpo-kicker), :host .carpo-preview p:not(.carpo-kicker), :host .carpo-loading-note, :host .carpo-help, :host .carpo-setup > p:not(.carpo-kicker) { margin: 5px 0 0; color: #aaa8a6; font-size: 12px; line-height: 1.55; }
+:host .carpo-progress { height: 7px; margin-top: 22px; overflow: hidden; border-radius: 999px; background: #29292c; }
+:host .carpo-progress i { display: block; width: 38%; height: 100%; border-radius: inherit; background: #ff7417; animation: carpo-progress 1.4s ease-in-out infinite; }
+:host .carpo-loading-note { text-align: center; }
+:host .carpo-tool-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+:host .carpo-tool-row button, :host .carpo-generator button { min-height: 29px; border: 1px solid #343438; border-radius: 8px; background: #222224; color: #cbc7c2; cursor: pointer; font: 11px inherit; padding: 0 8px; }
+:host .carpo-tool-row button:hover, :host .carpo-generator button:hover { border-color: #ff7417; color: #fff; }
+:host .carpo-drop-zone { margin: -4px 0 12px; border: 1px dashed #4a4644; border-radius: 10px; color: #908b87; font-size: 11px; text-align: center; padding: 9px; }
+:host .carpo-drop-zone.dragging { border-color: #ff7417; background: rgba(255,116,23,.09); color: #ffd0ad; }
+:host .carpo-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 12px; background: #242426; }
+:host .carpo-tabs button { min-height: 32px; border: 0; border-radius: 8px; background: transparent; color: #a9a6a3; cursor: pointer; font: 600 12px inherit; }
+:host .carpo-tabs button.active { background: #3a393b; color: #fff; }
+:host .carpo-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+:host .carpo-tags span { padding: 5px 8px; border: 1px solid rgba(255,116,23,.35); border-radius: 999px; background: rgba(255,116,23,.08); color: #ffb174; font-size: 11px; }
+:host .carpo-editor, :host .carpo-output { width: 100%; min-height: 194px; max-height: 290px; margin: 12px 0 0; overflow: auto; border: 1px solid #303034; border-radius: 14px; background: #101011; color: #ece9e5; }
+:host .carpo-editor { resize: vertical; outline: none; font: 12px/1.68 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; padding: 14px; white-space: pre-wrap; }
+:host .carpo-editor:focus { border-color: #ff7417; box-shadow: 0 0 0 3px rgba(255,116,23,.12); }
+:host .carpo-output { padding: 14px; }
+:host .carpo-output pre { margin: 0; font: 12px/1.68 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre-wrap; word-break: break-word; }
+:host .carpo-analysis { margin-top: 12px; padding: 12px; border-left: 2px solid #ff7417; background: #222224; }
+:host .carpo-analysis p:last-child { margin: 0; color: #cbc8c5; font-size: 12px; line-height: 1.6; }
+:host .carpo-actions { justify-content: flex-end; gap: 8px; margin-top: 14px; }
+:host .carpo-button { min-height: 36px; border-radius: 10px; cursor: pointer; font: 650 12px inherit; padding: 0 12px; }
+:host .carpo-button.primary { border: 1px solid #ff7417; background: #ff7417; color: #181614; }
+:host .carpo-button.primary:hover { background: #ff8a38; }
+:host .carpo-button.secondary { border: 1px solid #3a393d; background: transparent; color: #e8e5e1; }
+:host .carpo-button.secondary:hover { background: #2a292c; }
+:host .carpo-details { margin-top: 16px; border-top: 1px solid #303034; padding-top: 13px; }
+:host .carpo-details summary { cursor: pointer; color: #c5c1bd; font-size: 12px; }
+:host .carpo-details div { margin-top: 12px; }
+:host .carpo-details h3 { margin: 12px 0 4px; color: #f2efeb; font-size: 11px; }
+:host .carpo-details p { margin: 0; color: #aaa7a3; font-size: 11px; line-height: 1.55; white-space: pre-wrap; }
+:host .carpo-generator { margin-top: 11px; padding: 11px; border: 1px solid #3b3129; border-radius: 12px; background: #221f1d; }
+:host .carpo-generator div { display: flex; flex-wrap: wrap; gap: 6px; }
+:host .carpo-setup { display: grid; gap: 11px; padding: 3px 2px 2px; }
+:host .carpo-setup label { display: grid; gap: 6px; color: #d9d5d1; font-size: 11px; font-weight: 700; }
+:host .carpo-setup input { width: 100%; height: 38px; border: 1px solid #38383c; border-radius: 10px; outline: none; background: #202023; color: #f6f3ef; font: 12px inherit; padding: 0 10px; }
+:host .carpo-setup input:focus { border-color: #ff7417; box-shadow: 0 0 0 3px rgba(255,116,23,.13); }
+:host .carpo-error { padding: 10px 2px 2px; }
+:host .carpo-error > p:not(.carpo-kicker) { color: #d1ceca; font-size: 13px; line-height: 1.65; }
+:host .carpo-history { margin-top: 15px; border-top: 1px solid #303034; padding-top: 12px; }
+:host .carpo-history header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+:host .carpo-history strong { font-size: 12px; }
+:host .carpo-history header button, :host .carpo-history-delete { border: 0; background: transparent; color: #aaa7a3; cursor: pointer; font: 10px inherit; padding: 4px; }
+:host .carpo-history ul { display: grid; gap: 6px; max-height: 190px; overflow: auto; margin: 9px 0 0; padding: 0; list-style: none; }
+:host .carpo-history li { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 5px; border: 1px solid #303034; border-radius: 10px; background: #202023; }
+:host .carpo-history li.active { border-color: rgba(255,116,23,.62); }
+:host .carpo-history li > button:first-child { display: flex; min-width: 0; align-items: center; gap: 8px; border: 0; background: transparent; color: #d7d2cd; cursor: pointer; font: 10px inherit; padding: 5px; text-align: left; }
+:host .carpo-history img { width: 32px; height: 32px; flex: 0 0 auto; border-radius: 6px; object-fit: cover; background: #313034; }
+:host .carpo-history span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+:host .carpo-history > p { color: #85817d; font-size: 11px; }
+:host .carpo-minimized { position: fixed; right: 22px; bottom: 22px; z-index: 2147483646; display: flex; align-items: center; gap: 8px; min-height: 42px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; background: #1b1b1d; box-shadow: 0 14px 34px rgba(0,0,0,.36); color: #f7f3ef; cursor: pointer; font: 650 12px inherit; padding: 0 12px 0 7px; }
+:host .carpo-minimized img { width: 28px; height: 28px; border-radius: 50%; }
+:host .carpo-inline { position: fixed; z-index: 2147483645; display: flex; align-items: center; gap: 5px; min-height: 31px; border: 1px solid rgba(255,255,255,.24); border-radius: 9px; background: #18181acc; box-shadow: 0 8px 20px rgba(0,0,0,.35); color: #fff; cursor: pointer; font: 650 11px inherit; padding: 0 8px 0 5px; backdrop-filter: blur(12px); }
+:host .carpo-inline img { width: 20px; height: 20px; border-radius: 6px; }
+:host .carpo-inline:hover { border-color: #ff7417; background: #242224; }
+:host .carpo-inline[hidden] { display: none; }
+:host .carpo-toast { position: fixed; right: 24px; bottom: 24px; z-index: 2147483647; max-width: min(360px, calc(100vw - 40px)); border: 1px solid #3c3a3d; border-radius: 11px; background: #252427; box-shadow: 0 14px 36px rgba(0,0,0,.42); color: #f1ede8; font: 12px/1.45 Inter, ui-sans-serif, system-ui, sans-serif; padding: 11px 13px; }
+:host .carpo-toast[data-tone="error"] { border-color: #8c4743; color: #ffc1b8; }
+:host .carpo-capture { position: fixed; inset: 0; z-index: 2147483647; cursor: crosshair; background: rgba(10,10,11,.48); }
+:host .carpo-capture-guide { position: fixed; top: 20px; left: 50%; display: flex; align-items: center; gap: 12px; transform: translateX(-50%); border: 1px solid rgba(255,255,255,.2); border-radius: 12px; background: #1d1c1ecf; box-shadow: 0 10px 30px rgba(0,0,0,.36); color: #f8f5f1; font-size: 12px; padding: 10px 12px; backdrop-filter: blur(12px); }
+:host .carpo-capture-guide span { color: #b6b1ad; font-size: 11px; }
+:host .carpo-capture-guide button { border: 1px solid #4a4749; border-radius: 7px; background: transparent; color: #f3efea; cursor: pointer; font: 11px inherit; padding: 5px 8px; }
+:host .carpo-capture-selection { position: fixed; border: 2px solid #ff7417; background: rgba(255,116,23,.12); box-shadow: 0 0 0 9999px rgba(0,0,0,.28); pointer-events: none; }
+@keyframes carpo-progress { 0% { transform: translateX(-110%); } 55% { transform: translateX(185%); } 100% { transform: translateX(285%); } }
+@media (max-width: 560px) {
+  :host .carpo-panel { right: 12px; bottom: 12px; width: calc(100vw - 24px); max-height: calc(100vh - 24px); }
+  :host .carpo-head-actions { display: none; }
+  :host .carpo-capture-guide { width: calc(100vw - 24px); justify-content: center; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { :host .carpo-progress i { width: 100%; animation: none; } }

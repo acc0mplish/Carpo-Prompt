@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Carpo-Prompt</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="popup-header">
+        <img src="../icons/icon-48.png" alt="" />
+        <div>
+          <p>IMAGE TO PROMPT</p>
+          <h1>Carpo-Prompt</h1>
+        </div>
+      </header>
+
+      <section class="intro-card">
+        <strong>이미지를 프롬프트로 역복원</strong>
+        <p>웹 이미지에서 한국어·영어 재현 프롬프트와 구조화 JSON을 만듭니다.</p>
+      </section>
+      <div class="quick-actions">
+        <button id="open-panel" class="quick-primary" type="button">패널 열기</button>
+        <button id="analyze-page" type="button">현재 페이지 이미지 분석</button>
+        <button id="open-latest" type="button">최근 결과 열기</button>
+      </div>
+
+      <form id="settings-form">
+        <label>
+          <span>Provider</span>
+          <select id="provider" name="provider" aria-label="API provider">
+            <option value="openai">OpenAI</option>
+            <option value="gemini">Gemini</option>
+            <option value="glm">GLM-5V (z.ai)</option>
+            <option value="custom">Custom API</option>
+          </select>
+        </label>
+        <label>
+          <span>Base URL</span>
+          <input id="base-url" name="baseUrl" type="url" autocomplete="url" placeholder="https://api.openai.com/v1" required />
+        </label>
+        <label>
+          <span>API key</span>
+          <input id="api-key" name="apiKey" type="password" autocomplete="off" placeholder="sk-..." required />
+        </label>
+        <label>
+          <span>Vision model</span>
+          <input id="model" name="model" type="text" autocomplete="off" placeholder="gpt-5.6 / gemini-3.6 / glm-5.2" required />
+        </label>
+        <label class="toggle-row">
+          <span><strong>이미지 위 Prompt 버튼</strong><small>웹 이미지에 마우스를 올리면 빠른 분석 버튼을 표시합니다.</small></span>
+          <input id="inline-enabled" type="checkbox" checked aria-label="이미지 위 Prompt 버튼 표시" />
+        </label>
+        <p id="status" class="status" role="status">설정을 저장한 뒤 웹 이미지에서 마우스 오른쪽 버튼을 누르세요.</p>
+        <div class="form-actions">
+          <button class="button secondary" id="test" type="button">연결 테스트</button>
+          <button class="button primary" id="save" type="submit">저장</button>
+        </div>
+      </form>
+
+      <footer>API key는 이 브라우저의 확장 저장소에만 보관됩니다.</footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

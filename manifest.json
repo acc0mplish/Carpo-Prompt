@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "Carpo-Prompt — Image to Prompt",
+  "version": "1.0.0",
+  "description": "Right-click an image to reconstruct a detailed Korean and English generation prompt with your own vision API.",
+  "action": {
+    "default_title": "Carpo-Prompt",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "contextMenus",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "exclude_matches": [
+        "https://accounts.google.com/*",
+        "https://login.microsoftonline.com/*",
+        "https://*.paypal.com/*",
+        "https://checkout.stripe.com/*",
+        "https://*.stripe.com/*",
+        "https://*.wise.com/*",
+        "https://*.coinbase.com/*",
+        "https://*.kraken.com/*"
+      ],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*.png", "src/content.css"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ]
+}

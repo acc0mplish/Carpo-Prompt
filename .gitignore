@@ -1,0 +1,19 @@
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# 에디터 / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 로그 / 임시 / 캐시
+*.log
+tmp/
+.cache/
+
+# Claude Code / claude-mem 컨텍스트 (로컬 전용)
+src/CLAUDE.md

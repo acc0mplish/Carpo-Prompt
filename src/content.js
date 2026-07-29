@@ -9,10 +9,17 @@
     "kraken.com"
   ];
   if (isSensitiveLocation()) return;
-  if (window.__carpoPromptContentLoaded) return;
-  window.__carpoPromptContentLoaded = true;
-
   const ROOT_ID = `carpo-prompt-root-${chrome.runtime.id}`;
+  // 확장을 다시 불러오면 이미 열려 있던 탭의 content script는 고립(orphan) 상태가 됩니다.
+  // DOM 호스트와 가드 플래그는 남지만 chrome.runtime 컨텍스트가 무효화되어 메시지
+  // 리스너가 죽으므로, 패널 열기/우클릭 분석이 조용히 동작하지 않습니다.
+  // 이전 인스턴스가 살아 있으면 건너뛰고, 고립되었으면 호스트를 치우고 새로 인계합니다.
+  if (window.__carpoPromptContentLoaded && typeof window.__carpoPromptIsAlive === "function" && window.__carpoPromptIsAlive()) {
+    return;
+  }
+  document.getElementById(ROOT_ID)?.remove();
+  window.__carpoPromptContentLoaded = true;
+  window.__carpoPromptIsAlive = () => { try { chrome.runtime.getURL(""); return true; } catch { return false; } };
   const HISTORY_KEY = "carpoPromptHistory";
   const UI_KEY = "carpoPromptUi";
   const MAX_HISTORY = 24;
@@ -304,6 +311,7 @@
       <nav class="carpo-tabs" aria-label="출력 언어"><button type="button" data-action="tab" data-tab="ko" class="${state.tab === "ko" ? "active" : ""}">한국어</button><button type="button" data-action="tab" data-tab="en" class="${state.tab === "en" ? "active" : ""}">English</button><button type="button" data-action="tab" data-tab="json" class="${state.tab === "json" ? "active" : ""}">JSON</button></nav>
       ${tags.length ? `<div class="carpo-tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
       ${editor}
+      ${state.analysis.negative_prompt ? `<div class="carpo-negative"><span>${escapeHtml(state.analysis.negative_prompt)}</span><button type="button" data-action="copy-negative">복사</button></div>` : ""}
       ${analysis ? `<section class="carpo-analysis"><p class="carpo-kicker">ANALYSIS</p><p>${escapeHtml(analysis)}</p></section>` : ""}
       <div class="carpo-actions"><button class="carpo-button secondary" type="button" data-action="reset">원본으로 되돌리기</button><button class="carpo-button secondary" type="button" data-action="copy-active">현재 내용 복사</button><button class="carpo-button primary" type="button" data-action="generator-toggle">생성기에 보내기</button></div>
       ${state.generatorOpen ? generatorView() : ""}
@@ -362,6 +370,7 @@
     if (action === "settings") { state.status = "setup"; state.error = ""; render(); }
     if (action === "tab") { state.tab = button.dataset.tab; render(); }
     if (action === "copy-active") copyText(activeOutput(), button);
+    if (action === "copy-negative") copyText(state.analysis?.negative_prompt || "", button);
     if (action === "reset") { state.drafts = { ko: state.analysis.ko.prompt, en: state.analysis.en.prompt }; persistDrafts(); render(); }
     if (action === "local") fileInput.click();
     if (action === "screenshot") beginCapture();

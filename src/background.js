@@ -157,7 +157,11 @@ async function sendToActiveTab(type) {
   try {
     await chrome.tabs.sendMessage(tab.id, message);
   } catch {
-    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["src/content.js"] });
+    try {
+      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["src/content.js"] });
+    } catch {
+      throw new Error("이 페이지(예: chrome:// 페이지, 확장 스토어)에서는 패널을 열 수 없습니다. 일반 웹페이지(http·https)를 여세요.");
+    }
     await chrome.tabs.sendMessage(tab.id, message);
   }
 }

@@ -47,6 +47,10 @@
 :host .carpo-output pre { margin: 0; font: 12px/1.68 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre-wrap; word-break: break-word; }
 :host .carpo-analysis { margin-top: 12px; padding: 12px; border-left: 2px solid #ff7417; background: #222224; }
 :host .carpo-analysis p:last-child { margin: 0; color: #cbc8c5; font-size: 12px; line-height: 1.6; }
+:host .carpo-negative { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0 0; padding: 9px 11px; border: 1px solid #3a2f28; border-radius: 11px; background: #211e1c; }
+:host .carpo-negative span { flex: 1; min-width: 0; color: #d2ad8e; font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; word-break: break-word; }
+:host .carpo-negative button { flex: 0 0 auto; min-height: 26px; border: 1px solid #4a3f37; border-radius: 7px; background: transparent; color: #d8c4b0; cursor: pointer; font: 10px inherit; padding: 0 9px; }
+:host .carpo-negative button:hover { border-color: #ff7417; color: #fff; }
 :host .carpo-actions { justify-content: flex-end; gap: 8px; margin-top: 14px; }
 :host .carpo-button { min-height: 36px; border-radius: 10px; cursor: pointer; font: 650 12px inherit; padding: 0 12px; }
 :host .carpo-button.primary { border: 1px solid #ff7417; background: #ff7417; color: #181614; }

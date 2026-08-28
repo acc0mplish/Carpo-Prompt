@@ -673,21 +673,52 @@
     if (line && lineNumber < maxLines) context.fillText(line, x, y + lineNumber * lineHeight);
   }
 
+  const INLINE_BUTTON_WIDTH = 98;
+  const INLINE_BUTTON_HEIGHT = 31;
+  const INLINE_MARGIN = 8;
+  const INLINE_GAP = 5;
+  let inlineHideTimer = 0;
+
   function inspectImageHover(event) {
     if (!event.isTrusted) return;
     if (!state.inlineEnabled || state.status === "capture") return;
-    if (event.composedPath().includes(host)) return;
+    if (event.composedPath().includes(host)) { clearTimeout(inlineHideTimer); return; }
     const image = event.target instanceof Element ? event.target.closest("img") : null;
-    if (!image || !image.complete || image.naturalWidth < 80 || image.naturalHeight < 80) { hideInline(); return; }
+    if (!image || !image.complete || image.naturalWidth < 80 || image.naturalHeight < 80) { scheduleInlineHide(); return; }
     const rect = image.getBoundingClientRect();
-    if (rect.width < 48 || rect.height < 48 || rect.bottom < 0 || rect.right < 0 || rect.top > innerHeight || rect.left > innerWidth) { hideInline(); return; }
+    if (rect.width < 48 || rect.height < 48 || rect.bottom < 0 || rect.right < 0 || rect.top > innerHeight || rect.left > innerWidth) { scheduleInlineHide(); return; }
+    clearTimeout(inlineHideTimer);
     inlineButton._carpoTarget = targetFromImage(image);
-    inlineButton.style.left = `${Math.max(8, Math.min(innerWidth - 106, rect.right - 98))}px`;
-    inlineButton.style.top = `${Math.max(8, Math.min(innerHeight - 40, rect.top + 8))}px`;
+    placeInlineButton(rect);
     inlineButton.hidden = false;
   }
 
+  function placeInlineButton(rect) {
+    // Large images host the button inside their top-right corner; smaller ones
+    // would be covered by it, so the button floats just outside the image box.
+    const compact = rect.width < INLINE_BUTTON_WIDTH + 32 || rect.height < INLINE_BUTTON_HEIGHT + 32;
+    let left;
+    let top;
+    if (!compact) {
+      left = rect.right - INLINE_BUTTON_WIDTH;
+      top = rect.top + INLINE_MARGIN;
+    } else {
+      top = rect.top >= INLINE_BUTTON_HEIGHT + INLINE_GAP + INLINE_MARGIN
+        ? rect.top - INLINE_BUTTON_HEIGHT - INLINE_GAP
+        : rect.bottom + INLINE_GAP;
+      left = rect.width >= INLINE_BUTTON_WIDTH ? rect.right - INLINE_BUTTON_WIDTH : rect.left;
+    }
+    inlineButton.style.left = `${Math.max(INLINE_MARGIN, Math.min(innerWidth - INLINE_BUTTON_WIDTH - INLINE_MARGIN, left))}px`;
+    inlineButton.style.top = `${Math.max(INLINE_MARGIN, Math.min(innerHeight - INLINE_BUTTON_HEIGHT - INLINE_MARGIN, top))}px`;
+  }
+
+  function scheduleInlineHide() {
+    clearTimeout(inlineHideTimer);
+    inlineHideTimer = setTimeout(() => { if (inlineButton) inlineButton.hidden = true; }, 180);
+  }
+
   function hideInline() {
+    clearTimeout(inlineHideTimer);
     if (inlineButton) inlineButton.hidden = true;
   }
 
